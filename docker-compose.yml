@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+
+  # ── PostgreSQL Database ───────────────────────────────────────────
+  db:
+    image: postgres:15
+    container_name: waste_postgres_db
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # ── FastAPI Backend ───────────────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: waste_backend_api
+    env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      MQTT_BROKER: ${MQTT_BROKER}
+      MQTT_PORT: ${MQTT_PORT}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # ── Next.js Frontend ──────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: waste_frontend_ui
+    env_file: .env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ── IoT Simulator ─────────────────────────────────────────────────
+  simulator:
+    build: ./simulator
+    container_name: waste_iot_simulator
+    env_file: .env
+    environment:
+      MQTT_BROKER: ${MQTT_BROKER}
+      MQTT_PORT: ${MQTT_PORT}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+    restart: unless-stopped
+
+volumes:
+  pgdata:

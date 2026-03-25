@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+paho-mqtt
+SQLAlchemy
+pydantic
+psycopg2-binary
