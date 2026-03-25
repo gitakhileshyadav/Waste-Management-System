@@ -7,10 +7,26 @@ SwachhTech is a comprehensive IoT-based platform designed for real-time monitori
 - **Target users:** Municipalities, smart city operators, and large-scale facility managers.
 
 ## Demo
-- **Local Access:** [http://localhost:3000](http://localhost:3000)
-
 - **Command Center View:**
-![SwachhTech Command Center](./command_center_dashboard_final_1774466028463.png)
+https://github.com/user-attachments/assets/ddef708e-df0c-4732-a786-2ce00df1b96b
+
+## Getting Started
+
+### Prerequisites
+- **Docker & Docker Compose:** Ensure you have the latest version of Docker Desktop installed and running.
+
+### Quick Start
+Run this single command in your root directory to build and start the entire stack (Database, Backend, Frontend, and Simulator):
+
+```powershell
+docker-compose up --build -d
+```
+
+### 🌍 Accessing the System
+- **Command Center Dashboard:** [http://localhost:3000](http://localhost:3000)
+- **Analytics Deep-Dive:** [http://localhost:3000/analytics](http://localhost:3000/analytics)
+- **Device Diagnostics:** [http://localhost:3000/devices](http://localhost:3000/devices)
+- **Backend API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ## Features
 - **Real-Time IoT Monitoring:** Continuous telemetry ingestion from smart bins via MQTT protocol.
@@ -40,6 +56,23 @@ The system follows a decoupled, event-driven architecture designed for high thro
 - **Docker Compose:** Used to ensure environment parity across the entire stack (DB, Backend, Frontend, Simulator) with a single `up` command.
 - **Public MQTT Broker:** Bypasses authentication complexities for POC development while maintaining the logic to support private cloud clusters for production.
 
+## Managing the Environment
+
+| Action | Command |
+|---|---|
+| **Stop All Services** | `docker-compose stop` |
+| **Start Stopped Services** | `docker-compose start` |
+| **Restart Everything** | `docker-compose restart` |
+| **View Live Logs** | `docker-compose logs -f` |
+| **Shutdown & Remove** | `docker-compose down` |
+| **Full Data Reset** | `docker-compose down -v` |
+
+## Troubleshooting
+- **Port Conflict?** If you get a "port is already allocated" error, ensure no local instances of Node (3000) or Python (8000) are running on your host machine.
+- **Port 8000 already in use?** Run: `Stop-Process -Id (Get-NetTCPConnection -LocalPort 8000).OwningProcess -Force`
+- **Data not appearing?** Wait about 30 seconds for the `waste_iot_simulator` container to start pushing its first batch of telemetry to the backend.
+- **Map not showing markers?** Ensure the simulator is running and you have an active internet connection (for Map tiles).
+
 ## Folder Structure
 ```text
 .
@@ -51,3 +84,10 @@ The system follows a decoupled, event-driven architecture designed for high thro
 ├── .env                # Environment variables (excluded from git)
 └── README.md           # Project documentation
 ```
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+Email: gitakhileshyadav@gmail.com
+GitHub: [@gitakhileshyadav](https://github.com/gitakhileshyadav)
