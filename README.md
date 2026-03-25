@@ -88,6 +88,4 @@ The system follows a decoupled, event-driven architecture designed for high thro
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
-Email: gitakhileshyadav@gmail.com
-GitHub: [@gitakhileshyadav](https://github.com/gitakhileshyadav)
+
