@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Leaflet CSS */
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --color-brand: #0B3C5D;
+  --color-bg: #FFFFFF;
+  --color-surface: #F5F7FA;
+  --color-text: #1F2937;
+  --color-muted: #6B7280;
+}
+
+@layer base {
+  body {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+}
+
+/* Cluster icon overrides */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: rgba(11, 60, 93, 0.15) !important;
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(11, 60, 93, 0.85) !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 13px;
+}
